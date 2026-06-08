@@ -1,0 +1,6 @@
+{
+  "name": "StreetVibe",
+  "description": "Discover premium men's fashion at StreetVibe. Shop shirts, pants, t-shirts, shoes and accessories with secure checkout and fast delivery.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

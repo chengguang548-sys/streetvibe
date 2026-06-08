@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+
+  --color-brand-sky: #B8E1F0;
+  --color-brand-ice: #DCEFF7;
+  --color-brand-white: #FFFFFF;
+  --color-brand-off: #F3F6F8;
+  --color-brand-charcoal: #061114;
+  --color-brand-black: #101010;
+  --color-brand-gray: #485152;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-white text-brand-black antialiased font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-montserrat tracking-tight font-semibold text-brand-charcoal;
+  }
+}
+
+/* Custom overlay or scrollbar animations */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3F6F8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #485152;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #061114;
+}
+
+/* Text Zoom Animation */
+.zoom-wrapper {
+  overflow: hidden;
+}
+.zoom-image {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.zoom-wrapper:hover .zoom-image {
+  transform: scale(1.08);
+}
