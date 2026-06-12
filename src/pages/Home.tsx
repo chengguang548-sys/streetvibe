@@ -13,6 +13,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
+import { API_BASE_URL } from '../config/api';
 
 export default function Home() {
   const { categories } = useStore();
@@ -30,7 +31,7 @@ export default function Home() {
     const fetchHomeItems = async () => {
       try {
         setLoading(true);
-        const resp = await fetch('/api/products?limit=50');
+        const resp = await fetch(`${API_BASE_URL}/api/products?limit=50`);
         const data = await resp.json();
         const allProducts: Product[] = data.products || [];
 

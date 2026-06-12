@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, HelpCircle, CheckCircle } from 'lucide-react';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { API_BASE_URL } from '../config/api';
 
 export default function Contact() {
   const [name, setName] = useState('');
@@ -21,7 +22,7 @@ export default function Contact() {
 
     setIsSubmitting(true);
     try {
-      const resp = await fetch('/api/contact', {
+      const resp = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, message })

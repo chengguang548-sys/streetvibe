@@ -5,6 +5,7 @@ import { Product, Review } from '../types';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ProductCard from '../components/ProductCard';
 import QuickViewModal from '../components/QuickViewModal';
+import { API_BASE_URL } from '../config/api';
 import { 
   Star, 
   ShoppingBag, 
@@ -67,7 +68,7 @@ export default function ProductDetails() {
         setRComment('');
         setRName('');
 
-        const resp = await fetch(`/api/products/${slug}`);
+        const resp = await fetch(`${API_BASE_URL}/api/products/${slug}`);
         if (!resp.ok) {
           navigate('/shop');
           return;
@@ -90,7 +91,7 @@ export default function ProductDetails() {
         addToRecentlyViewed(data);
 
         // Fetch related products in category
-        const relResp = await fetch(`/api/products?category=${data.category}&limit=5`);
+        const relResp = await fetch(`${API_BASE_URL}/api/products?category=${data.category}&limit=5`);
         const relData = await relResp.json();
         // Skip current item
         const filteredRelated = (relData.products || []).filter((p: Product) => p.id !== data.id).slice(0, 4);
@@ -167,7 +168,7 @@ export default function ProductDetails() {
     }
 
     try {
-      const resp = await fetch(`/api/products/${product.id}/review`, {
+      const resp = await fetch(`${API_BASE_URL}/api/products/${product.id}/review`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

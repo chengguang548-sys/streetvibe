@@ -3,6 +3,7 @@ import { useStore } from '../context/StoreContext';
 import { Mail, Phone, MapPin, Send, Facebook, Instagram, Twitter, ShieldCheck, RefreshCw, Truck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
+import { API_BASE_URL } from '../config/api';
 
 export default function Footer() {
   const { categories } = useStore();
@@ -19,7 +20,7 @@ export default function Footer() {
 
     setIsSubmitting(true);
     try {
-      const resp = await fetch('/api/newsletter', {
+      const resp = await fetch(`${API_BASE_URL}/api/newsletter`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: newsletterEmail })

@@ -3,6 +3,7 @@ import { useStore } from '../context/StoreContext';
 import { ShoppingBag, Trash2, ArrowRight, Tag, Percent, Info, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { API_BASE_URL } from '../config/api';
 
 export default function Cart() {
   const { 
@@ -31,7 +32,7 @@ export default function Cart() {
 
     setIsActivating(true);
     try {
-      const resp = await fetch('/api/coupons/validate', {
+      const resp = await fetch(`${API_BASE_URL}/api/coupons/validate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: promoCode.toUpperCase(), subtotal: getCartSubtotal() })

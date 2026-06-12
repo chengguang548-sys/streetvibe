@@ -3,6 +3,7 @@ import { useStore } from '../context/StoreContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { User, ShoppingBag, MapPin, Truck, Calendar, KeyRound, Check, RefreshCw } from 'lucide-react';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { API_BASE_URL } from '../config/api';
 
 export default function Profile() {
   const { user, logout } = useStore();
@@ -26,7 +27,7 @@ export default function Profile() {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const resp = await fetch(`/api/orders?userId=${user.id}`);
+        const resp = await fetch(`${API_BASE_URL}/api/orders?userId=${user.id}`);
         const data = await resp.json();
         setOrders(data || []);
       } catch (err) {
@@ -61,8 +62,8 @@ export default function Profile() {
         {/* Left Side Sidebar options: Info & Logout (4 Columns) */}
         <div className="md:col-span-4 bg-brand-off border border-brand-off/10 rounded-lg p-6 space-y-6 select-none">
           <div className="flex items-center space-x-3.5 pb-4 border-b">
-            <div className="w-12 h-12 bg-brand-charcoal text-white rounded-full flex items-center justify-center font-montserrat font-black text-sm uppercase">
-              {user?.name.charAt(0) || 'U'}
+              <div className="w-12 h-12 bg-brand-charcoal text-white rounded-full flex items-center justify-center font-montserrat font-black text-sm uppercase">
+              {user?.name?.charAt(0) || 'U'}
             </div>
             <div>
               <h3 className="font-montserrat font-extrabold text-xs text-brand-charcoal uppercase select-all truncate">{user?.name}</h3>

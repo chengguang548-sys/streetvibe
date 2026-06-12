@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../context/StoreContext';
 import { Product } from '../types';
+import { API_BASE_URL } from '../config/api';
 import { 
   Search, 
   Heart, 
@@ -86,7 +87,7 @@ export default function Header() {
     const delayDebounceFn = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const resp = await fetch(`/api/products?search=${encodeURIComponent(searchQuery)}`);
+        const resp = await fetch(`${API_BASE_URL}/api/products?search=${encodeURIComponent(searchQuery)}`);
         const data = await resp.json();
         setSearchResults(data.products || []);
       } catch (err) {

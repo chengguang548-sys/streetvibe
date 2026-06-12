@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../context/StoreContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { API_BASE_URL } from '../config/api';
 import { 
   BarChart, 
   Bar, 
@@ -90,19 +91,19 @@ export default function AdminPanel() {
       setProductsLoading(true);
 
       // Load Analytics
-      const analResp = await fetch('/api/admin/analytics');
+      const analResp = await fetch(`${API_BASE_URL}/api/admin/analytics`);
       const analData = await analResp.json();
       setStats(analData.stats || { totalSales: 247000, ordersCount: 120, avgOrderValue: 2058, customersCount: 95 });
       setChartData(analData.salesChart || []);
 
       // Load Orders
-      const ordResp = await fetch('/api/orders');
+      const ordResp = await fetch(`${API_BASE_URL}/api/orders`);
       const ordData = await ordResp.json();
       setOrders(ordData || []);
       setOrdersLoading(false);
 
       // Load Products
-      const prodResp = await fetch('/api/products?limit=50');
+      const prodResp = await fetch(`${API_BASE_URL}/api/products?limit=50`);
       const prodData = await prodResp.json();
       setProducts(prodData.products || []);
       setProductsLoading(false);
@@ -118,7 +119,7 @@ export default function AdminPanel() {
 
   const handleStatusChange = async (orderId: string, nextStatus: string) => {
     try {
-      const resp = await fetch(`/api/orders/${orderId}/status`, {
+      const resp = await fetch(`${API_BASE_URL}/api/orders/${orderId}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: nextStatus })
@@ -139,7 +140,7 @@ export default function AdminPanel() {
   const handleDeleteProduct = async (prodId: string) => {
     if (!window.confirm('Are you strictly sure you want to delete this product?')) return;
     try {
-      const resp = await fetch(`/api/products/${prodId}`, {
+      const resp = await fetch(`${API_BASE_URL}/api/products/${prodId}`, {
         method: 'DELETE'
       });
       if (resp.ok) {
@@ -264,11 +265,11 @@ export default function AdminPanel() {
         formData.append('images', file);
       });
 
-      let url = '/api/products';
+      let url = `${API_BASE_URL}/api/products`;
       let method = 'POST';
 
       if (editingProduct) {
-        url = `/api/products/${editingProduct.id}`;
+        url = `${API_BASE_URL}/api/products/${editingProduct.id}`;
         method = 'PUT';
         // Send keeping list of existing images
         formData.append('images', JSON.stringify(existingImages));

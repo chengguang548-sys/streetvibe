@@ -3,6 +3,7 @@ import { useStore } from '../context/StoreContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { ShieldCheck, Truck, CreditCard, CheckCircle, Printer, ArrowLeft, ArrowRight, Sparkles, Building, KeyRound, QrCode } from 'lucide-react';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { API_BASE_URL } from '../config/api';
 
 export default function Checkout() {
   const { 
@@ -92,7 +93,7 @@ export default function Checkout() {
     }
 
     try {
-      const resp = await fetch('/api/orders', {
+      const resp = await fetch(`${API_BASE_URL}/api/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

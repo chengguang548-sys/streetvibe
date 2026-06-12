@@ -6,6 +6,7 @@ import ProductCard from '../components/ProductCard';
 import QuickViewModal from '../components/QuickViewModal';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { SlidersHorizontal, ChevronLeft, ChevronRight, X, ChevronDown } from 'lucide-react';
+import { API_BASE_URL } from '../config/api';
 
 export default function Shop() {
   const { category: urlCategory } = useParams<{ category?: string }>();
@@ -41,7 +42,7 @@ export default function Shop() {
     const fetchCatalog = async () => {
       setLoading(true);
       try {
-        let endpoint = `/api/products?page=${page}&limit=12&sort=${sort}`;
+        let endpoint = `${API_BASE_URL}/api/products?page=${page}&limit=12&sort=${sort}`;
         
         // Category path override
         if (urlCategory && urlCategory !== 'all') {
@@ -71,9 +72,9 @@ export default function Shop() {
         // Tags handles
         const tag = searchParams.get('tag');
         if (tag === 'new-arrivals') {
-          endpoint = `/api/products?isNewArrival=true&limit=12&sort=${sort}`;
+          endpoint = `${API_BASE_URL}/api/products?isNewArrival=true&limit=12&sort=${sort}`;
         } else if (tag === 'sale') {
-          endpoint = `/api/products?limit=50&sort=${sort}`; // Front will filter sale on load
+          endpoint = `${API_BASE_URL}/api/products?limit=50&sort=${sort}`; // Front will filter sale on load
         }
 
         const resp = await fetch(endpoint);

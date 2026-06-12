@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Product, User, CartItem, Coupon, Address, Order } from '../types';
+import { API_BASE_URL } from '../config/api';
 
 interface StoreContextType {
   user: User | null;
@@ -96,7 +97,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   // Auth Operations
   const login = async (email: string, password: string) => {
     try {
-      const resp = await fetch('/api/auth/login', {
+      const resp = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -118,7 +119,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const register = async (email: string, password: string, firstName: string, lastName: string, phone?: string) => {
     try {
-      const resp = await fetch('/api/auth/register', {
+      const resp = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, firstName, lastName, phone })
@@ -149,7 +150,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const updateAddresses = async (addresses: Address[]) => {
     if (!user) return false;
     try {
-      const resp = await fetch('/api/auth/profile', {
+      const resp = await fetch(`${API_BASE_URL}/api/auth/profile`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id, addresses })
@@ -231,7 +232,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   // Coupons
   const validateAndApplyCoupon = async (code: string) => {
     try {
-      const resp = await fetch('/api/coupons/validate', {
+      const resp = await fetch(`${API_BASE_URL}/api/coupons/validate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code, amount: getCartSubtotal() })
@@ -289,7 +290,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       cartItems: cart
     };
 
-    const resp = await fetch('/api/orders', {
+    const resp = await fetch(`${API_BASE_URL}/api/orders`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(finalPayload)
